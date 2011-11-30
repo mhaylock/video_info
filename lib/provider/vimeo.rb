@@ -7,8 +7,12 @@ class Vimeo
 
   def initialize(url, options = {})
     @openURI_options = options
-    @video_id = url.gsub(/.*\.com\/(?:groups\/[^\/]+\/videos\/)?([0-9]+).*$/i, '\1')
-    get_info unless @video_id == url
+    @video_id = url[regex, 1]
+    get_info unless @video_id.nil?
+  end
+
+  def regex
+    /http:\/\/(?:player\.|www\.)?vimeo\.com\/(?:video\/|groups\/[^\/]+\/videos\/)?([0-9]+)/i
   end
 
 private

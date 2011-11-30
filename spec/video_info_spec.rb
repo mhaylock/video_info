@@ -61,6 +61,13 @@ describe "VideoInfo" do
       its(:provider) { should == 'YouTube' }
       its(:video_id) { should == "mZqGqE0D0n4" }
     end
+    
+    describe "bad youtube url" do
+      subject { VideoInfo.new('http://www.youtube.com/video/mZqGqE0D0n4') }
+
+      it { should_not be_valid }
+      its(:video_id) { should be_nil }
+    end
   end
 
   context "from Vimeo" do
@@ -84,16 +91,25 @@ describe "VideoInfo" do
       it { should be_valid }
     end
 
-    describe "/group/ url" do
+    describe "/groups/ url" do
       use_vcr_cassette "vimeo/898029"
       subject { VideoInfo.new('http://vimeo.com/groups/1234/videos/898029') }
       its(:provider) { should == 'Vimeo' }
+      its(:video_id) { should == "898029" }
+    end
+    
+    describe "player.vimeo.com url" do
+      use_vcr_cassette "vimeo/898029"
+      subject { VideoInfo.new('http://player.vimeo.com/video/898029?title=0&amp;byline=0&amp;portrait=0') }
+      its(:provider) { should == 'Vimeo' }
+      its(:video_id) { should == "898029" }
     end
      
     describe "bad vimeo url" do
       subject { VideoInfo.new('http://www.vimeo.com/groups/898029') }
 
       it { should_not be_valid }
+      its(:video_id) { should be_nil }
     end
   end
 

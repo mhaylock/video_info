@@ -7,18 +7,16 @@ class Youtube
 
   def initialize(url, options = {})
     @openURI_options = options
-    video_id_for(url)
-    get_info unless @video_id == url
+    @video_id = url[regex, 1]
+    get_info unless @video_id.nil?
   end
 
   def regex
-    /http:\/\/(?:www.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=|v\/|embed\/)?([A-Za-z0-9._%-]+)/ 
+    /(?:http:\/\/(?:www.)?youtube\.com\/(?:watch\?v=|v\/|embed\/)|http:\/\/youtu\.be\/)([A-Za-z0-9._%-]+)/ 
   end
 
   def video_id_for(url)
-    url.gsub(regex) do
-      @video_id = $1
-    end
+    @video_id = url.gsub(regex, '\1')
   end
 
 private
