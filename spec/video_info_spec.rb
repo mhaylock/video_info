@@ -28,6 +28,7 @@ describe "VideoInfo" do
       subject { VideoInfo.new('http://www.youtube.com/watch?v=JM9NgvjjVng') }
 
       its(:provider)         { should == 'YouTube' }
+      its(:video_id) { should == "JM9NgvjjVng" }
       its(:duration)         { should == 217 }
       it { should be_valid }
     end
@@ -35,6 +36,7 @@ describe "VideoInfo" do
     describe "Video oQ49W_xKzKA" do
       use_vcr_cassette "youtube/oQ49W_xKzKA"
       subject { VideoInfo.new('http://www.youtube.com/watch?v=oQ49W_xKzKA') }
+      its(:video_id) { should == "oQ49W_xKzKA" }
 
       its(:view_count) { should == 2 }
     end
@@ -43,6 +45,21 @@ describe "VideoInfo" do
       use_vcr_cassette "youtube/JM9NgvjjVng"
       subject { VideoInfo.new('http://youtu.be/JM9NgvjjVng') }
       its(:provider) { should == 'YouTube' }
+      its(:video_id) { should == "JM9NgvjjVng" }
+    end
+    
+    describe "/embed/ url" do
+      use_vcr_cassette "youtube/oQ49W_xKzKA"
+      subject { VideoInfo.new('http://www.youtube.com/embed/oQ49W_xKzKA') }
+      its(:provider) { should == 'YouTube' }
+      its(:video_id) { should == "oQ49W_xKzKA" }
+    end
+    
+    describe "/v/ url" do
+      use_vcr_cassette "youtube/mZqGqE0D0n4"
+      subject { VideoInfo.new('http://www.youtube.com/v/mZqGqE0D0n4') }
+      its(:provider) { should == 'YouTube' }
+      its(:video_id) { should == "mZqGqE0D0n4" }
     end
   end
 
