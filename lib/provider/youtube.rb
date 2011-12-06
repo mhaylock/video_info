@@ -12,7 +12,7 @@ class Youtube
   end
 
   def regex
-    /(?:http:\/\/(?:www.)?youtube\.com\/(?:watch\?v=|v\/|embed\/)|http:\/\/youtu\.be\/)([A-Za-z0-9._%-]+)/ 
+    /(?::\/\/(?:www.)?youtube\.com\/(?:watch\?v=|v\/|embed\/)|:\/\/youtu\.be\/)([A-Za-z0-9._%-]+)/ 
   end
 
   def video_id_for(url)

@@ -62,6 +62,13 @@ describe "VideoInfo" do
       its(:video_id) { should == "mZqGqE0D0n4" }
     end
     
+    describe "https url" do
+      use_vcr_cassette "youtube/oQ49W_xKzKA"
+      subject { VideoInfo.new('https://www.youtube.com/watch?v=oQ49W_xKzKA') }
+      its(:provider) { should == 'YouTube' }
+      its(:video_id) { should == "oQ49W_xKzKA" }
+    end
+    
     describe "bad youtube url" do
       subject { VideoInfo.new('http://www.youtube.com/video/mZqGqE0D0n4') }
 

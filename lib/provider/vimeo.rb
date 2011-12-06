@@ -12,7 +12,7 @@ class Vimeo
   end
 
   def regex
-    /http:\/\/(?:player\.|www\.)?vimeo\.com\/(?:video\/|groups\/[^\/]+\/videos\/)?([0-9]+)/i
+    /:\/\/(?:player\.|www\.)?vimeo\.com\/(?:video\/|groups\/[^\/]+\/videos\/)?([0-9]+)/i
   end
 
 private
